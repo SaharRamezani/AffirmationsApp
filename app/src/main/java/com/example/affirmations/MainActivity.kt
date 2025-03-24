@@ -19,15 +19,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -63,10 +60,25 @@ fun AffirmationsApp() {
     )
 }
 
+// LazyColumn is a commonly used component for efficiently displaying a vertically scrolling list
+//@Composable
+//fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
+//    LazyColumn(modifier = modifier) {
+//        items(affirmationList) { affirmation ->
+//            AffirmationCard(
+//                affirmation = affirmation,
+//                modifier = Modifier.padding(8.dp)
+//            )
+//        }
+//    }
+//}
+
+// Use Modifier.verticalScroll(rememberScrollState()) with Column if you want a
+// scrollable view but don't need lazy loading.
 @Composable
 fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
-        items(affirmationList) { affirmation ->
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        affirmationList.forEach { affirmation ->
             AffirmationCard(
                 affirmation = affirmation,
                 modifier = Modifier.padding(8.dp)
@@ -74,6 +86,19 @@ fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Mod
         }
     }
 }
+
+// No scrolling
+//@Composable
+//fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
+//    Column() {
+//        affirmationList.forEach { affirmation ->
+//            AffirmationCard(
+//                affirmation = affirmation,
+//                modifier = Modifier.padding(8.dp)
+//            )
+//        }
+//    }
+//}
 
 @Composable
 fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier) {
